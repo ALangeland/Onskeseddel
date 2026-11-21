@@ -176,15 +176,14 @@ background:radial-gradient(ellipse at 50% 55%,#fff 0%,#fff 45%,#f6ecdc 100%);bor
 .card:hover .thumb svg{transform:translateY(-4px) rotate(-3deg) scale(1.04)}
 .hero:not(.has-banner){min-height:clamp(340px,32vw,440px)}
 
-/* sne på kortene, der drysser af ved berøring */
-.card .cap{position:absolute;left:10px;right:10px;top:-7px;height:16px;z-index:2;pointer-events:none;
-background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M0 12C6 4 14 3 22 7s14-6 26-4 12 8 22 6 14-8 26-6 10 9 22 7 16-9 28-6 10 8 20 6 14-6 20-2 8 4 14 6v6H0z' fill='%23f7faff'/%3E%3C/svg%3E") 0 0/100% 100%;
-filter:drop-shadow(0 2px 2px #0003);transition:transform .4s}
-.card .cap::before,.card .cap::after{content:"";position:absolute;top:10px;width:5px;height:5px;border-radius:50%;background:#fff;opacity:0;box-shadow:24px 6px 0 -1px #fff,60px 2px 0 #fff,-30px 8px 0 -1px #fff}
-.card .cap::before{left:30%}.card .cap::after{left:70%}
-.card:hover .cap{transform:translateY(1px) scaleY(.85)}
-.card:hover .cap::before{animation:sift 1s ease-in both}.card:hover .cap::after{animation:sift 1.1s .12s ease-in both}
-@keyframes sift{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(70px)}}
+/* sne på kortene, der drysser af ved hover */
+.card::before{display:none}
+.card .cap{position:absolute;left:6px;right:6px;top:-10px;height:18px;z-index:2;pointer-events:none;
+background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 18' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='.45' stop-color='%23ffffff'/%3E%3Cstop offset='1' stop-color='%23fdf8ee'/%3E%3C/linearGradient%3E%3Cpath d='M0 18V14C5 6 13 4 22 8s13-7 26-5 12 9 22 7 14-9 26-7 10 10 22 8 16-10 28-7 10 9 20 7 14-7 20-3 8 5 14 8v4z' fill='url(%23g)'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+.card .cap::after{content:"";position:absolute;left:0;right:0;top:10px;height:4px;opacity:0;will-change:transform,opacity;
+background:radial-gradient(circle,#fff 1.6px,transparent 2.2px) 12% 0/26px 4px repeat-x,radial-gradient(circle,#fff 1.2px,transparent 1.8px) 3% 0/38px 4px repeat-x}
+@media(hover:hover){.card:hover .cap::after{animation:sift 1.1s ease-in forwards}}
+@keyframes sift{0%{opacity:.95;transform:translateY(0)}100%{opacity:0;transform:translateY(60px)}}
 
 /* sektioner: blød glød fra byens lys */
 h2{color:#f6ecdc}
