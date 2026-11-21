@@ -15,7 +15,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-
 a{color:var(--gold)}
 
 /* ---------- byscenen ---------- */
-.hero{position:relative;min-height:clamp(520px,52vw,720px);display:flex;align-items:flex-start;overflow:hidden;
+.hero{position:relative;min-height:clamp(440px,46vw,660px);display:flex;align-items:flex-start;overflow:hidden;
 background:radial-gradient(ellipse 90% 40% at 50% 100%,#f3b56a40,transparent 70%),linear-gradient(#0b1430 0%,#1a2b55 35%,#34507f 70%,#6f7fa6 100%)}
 .sky{position:absolute;inset:0;pointer-events:none}
 .stars{position:absolute;inset:0 0 45%;background-image:radial-gradient(1.6px 1.6px at 8% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 22% 8%,#fff,transparent),radial-gradient(2px 2px at 37% 22%,#fff,transparent),radial-gradient(1.4px 1.4px at 61% 12%,#fff,transparent),radial-gradient(1.8px 1.8px at 74% 26%,#fff,transparent),radial-gradient(1.4px 1.4px at 88% 9%,#fff,transparent),radial-gradient(1.6px 1.6px at 95% 30%,#fff,transparent),radial-gradient(1.4px 1.4px at 50% 4%,#fff,transparent);animation:twinkle 4s ease-in-out infinite alternate}
@@ -31,7 +31,8 @@ background:radial-gradient(ellipse 90% 40% at 50% 100%,#f3b56a40,transparent 70%
 .hero.strike .clouds{animation-play-state:running;filter:brightness(1.6)}
 @keyframes flash{0%{opacity:0}4%{opacity:.85}10%{opacity:.1}16%{opacity:.55}100%{opacity:0}}
 @keyframes bolt{0%{opacity:0}4%{opacity:1}10%{opacity:.15}16%{opacity:1}45%{opacity:0}100%{opacity:0}}
-.by{position:absolute;inset:auto 0 0;height:min(62%,470px);background:url(by.svg) center bottom/auto 100% repeat-x;pointer-events:none}
+.hero.has-banner{background:linear-gradient(#0b143066,#0b143000 35%,#0b143000 70%,var(--bg) 100%),url(banner.jpg) center 40%/cover no-repeat,#1a2b55}
+.hero.has-banner .clouds,.hero.has-banner .stars{display:none}
 .snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 
 .hero-in{position:relative;z-index:2;width:100%;max-width:1240px;margin:0 auto;padding:clamp(30px,5vw,60px) max(4vw,16px) 0;text-align:center}
@@ -129,7 +130,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px;text-align:center}
 
 @media(max-width:760px){.intro{grid-template-columns:1fr}}
 @media(max-width:600px){
-  .hero{min-height:560px}.by{height:290px}.clouds{filter:blur(10px)}
+  .hero{min-height:480px}
   .hero-in{padding-top:34px}
   h1{font-size:clamp(32px,10.6vw,58px)}
   .spark{display:none}
@@ -147,3 +148,4 @@ background:radial-gradient(ellipse at 50% 60%,#fff 0%,#f3ead6 70%);border:1px so
 .thumb svg{width:58%;height:auto;max-height:100%;filter:drop-shadow(0 6px 6px #5a453633);transition:transform .4s cubic-bezier(.2,.9,.3,1)}
 .thumb img{width:100%;height:100%;object-fit:contain;background:#fff;padding:8px}
 .card:hover .thumb svg{transform:translateY(-4px) rotate(-3deg) scale(1.04)}
+.hero:not(.has-banner){min-height:clamp(340px,32vw,440px)}

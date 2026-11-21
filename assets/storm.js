@@ -10,10 +10,10 @@
   sky.innerHTML = '<div class="stars"></div><div class="clouds"></div><div class="clouds two"></div><div class="flash"></div>' +
     '<svg class="bolt" viewBox="0 0 1000 600" preserveAspectRatio="none"><polyline points=""/><polyline points=""/></svg>';
   hero.prepend(sky);
-  const by = document.createElement("div");
-  by.className = "by";
-  by.setAttribute("aria-hidden", "true");
-  sky.after(by);
+  /* eget malet baggrundsbillede: læg assets/banner.jpg i repoet, så bruges det automatisk */
+  const pic = new Image();
+  pic.onload = () => hero.classList.add("has-banner");
+  pic.src = new URL("assets/banner.jpg", location.href).href;
 
   /* titlen: bogstaver der hopper ind + gnister */
   const h1 = hero.querySelector("h1");
