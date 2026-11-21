@@ -1,54 +1,74 @@
-/* Ønskestormen: slud og lyn i baggrunden. Stille, hvis brugeren har slået animationer fra. */
+/* Ønskestormen: tordenhimmel over byen og snefald over hele siden.
+   Stille, hvis brugeren har slået animationer fra. */
 (() => {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const layer = document.createElement("div");
-  layer.className = "storm";
-  layer.setAttribute("aria-hidden", "true");
-  layer.innerHTML = '<div class="clouds"></div><svg class="bolt" viewBox="0 0 1000 600" preserveAspectRatio="none"><polyline points=""/></svg><canvas></canvas><div class="flash"></div>';
-  document.body.prepend(layer);
+  const sky = document.createElement("div");
+  sky.className = "sky";
+  sky.setAttribute("aria-hidden", "true");
+  sky.innerHTML = '<div class="clouds"></div><div class="clouds two"></div><div class="flash"></div>' +
+    '<svg class="bolt" viewBox="0 0 1000 600" preserveAspectRatio="none"><polyline points=""/><polyline points=""/></svg>';
+  hero.prepend(sky);
+  const by = document.createElement("div");
+  by.className = "by";
+  by.setAttribute("aria-hidden", "true");
+  sky.after(by);
   if (still) return;
 
-  const cv = layer.querySelector("canvas"), ctx = cv.getContext("2d");
-  let W = 0, H = 0, drops = [];
+  /* sne */
+  const cv = document.createElement("canvas");
+  cv.className = "snow";
+  cv.setAttribute("aria-hidden", "true");
+  document.body.append(cv);
+  const ctx = cv.getContext("2d");
   const dpr = Math.min(devicePixelRatio || 1, 2);
+  let W = 0, H = 0, flakes = [], t = 0;
   function size() {
     W = innerWidth; H = innerHeight;
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.round(Math.min(220, W * H / 7000));
-    drops = Array.from({ length: n }, () => make(true));
+    const n = Math.round(Math.min(170, W * H / 9000));
+    flakes = Array.from({ length: n }, () => make(true));
   }
   function make(anywhere) {
-    const snow = Math.random() < 0.35; // slud = regn + våd sne
-    return { x: Math.random() * (W + 200) - 100, y: anywhere ? Math.random() * H : -20, snow,
-      v: snow ? 1.6 + Math.random() * 1.6 : 9 + Math.random() * 7, l: 10 + Math.random() * 14, r: 1 + Math.random() * 1.8, w: Math.random() * 6.28 };
+    const z = Math.random(); // dybde: små og langsomme bagest
+    return { x: Math.random() * (W + 300) - 150, y: anywhere ? Math.random() * H : -10, z,
+      r: .8 + z * 2.4, v: .5 + z * 1.6, a: .25 + z * .5, w: Math.random() * 6.28 };
   }
-  let wind = -2.2;
   function tick() {
+    t += .006;
+    const wind = Math.sin(t) * 1.4 - 1 + Math.sin(t * 3.7) * .5; // vindstød
     ctx.clearRect(0, 0, W, H);
-    ctx.lineCap = "round";
-    for (const d of drops) {
-      if (d.snow) {
-        d.w += 0.03; d.x += wind * 0.5 + Math.sin(d.w) * 0.6; d.y += d.v;
-        ctx.fillStyle = "rgba(225,235,245,.55)"; ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 6.28); ctx.fill();
-      } else {
-        d.x += wind; d.y += d.v;
-        ctx.strokeStyle = "rgba(170,190,215,.32)"; ctx.lineWidth = 1.1; ctx.beginPath();
-        ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - wind * d.l / d.v * 1.6, d.y - d.l); ctx.stroke();
-      }
-      if (d.y > H + 20 || d.x < -120) Object.assign(d, make(false));
+    for (const f of flakes) {
+      f.w += .02;
+      f.x += wind * (.4 + f.z) + Math.sin(f.w) * .35;
+      f.y += f.v;
+      ctx.globalAlpha = f.a;
+      ctx.fillStyle = "#f4f8ff";
+      ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 6.283); ctx.fill();
+      if (f.y > H + 10 || f.x < -160 || f.x > W + 160) Object.assign(f, make(false));
     }
+    ctx.globalAlpha = 1;
     requestAnimationFrame(tick);
   }
 
-  const flash = layer.querySelector(".flash"), bolt = layer.querySelector(".bolt"), line = bolt.querySelector("polyline");
-  function lightning() {
-    let x = 150 + Math.random() * 700, y = 0;
+  /* lyn */
+  const lines = sky.querySelectorAll("polyline");
+  function path(x, y, len, spread) {
     const pts = [[x, y]];
-    while (y < 420) { y += 30 + Math.random() * 50; x += (Math.random() - 0.5) * 110; pts.push([x, y]); }
-    line.setAttribute("points", pts.map(p => p.join(",")).join(" "));
-    layer.classList.remove("strike"); void layer.offsetWidth; layer.classList.add("strike");
-    setTimeout(lightning, 5000 + Math.random() * 9000);
+    while (y < len) { y += 22 + Math.random() * 40; x += (Math.random() - .5) * spread; pts.push([x, y]); }
+    return pts;
+  }
+  function lightning() {
+    const x = 120 + Math.random() * 760;
+    const main = path(x, 0, 330 + Math.random() * 90, 90);
+    const fork = main[Math.floor(main.length / 2)];
+    lines[0].setAttribute("points", main.map(p => p.join(",")).join(" "));
+    lines[1].setAttribute("points", path(fork[0], fork[1], fork[1] + 120, 70).map(p => p.join(",")).join(" "));
+    hero.style.setProperty("--fx", (x / 10) + "%");
+    hero.classList.remove("strike"); void hero.offsetWidth; hero.classList.add("strike");
+    setTimeout(lightning, 6000 + Math.random() * 10000);
   }
   addEventListener("resize", size);
-  size(); tick(); setTimeout(lightning, 1800);
+  size(); tick(); setTimeout(lightning, 2200);
 })();

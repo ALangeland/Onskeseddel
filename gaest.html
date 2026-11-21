@@ -11,16 +11,14 @@
 <body>
 <header class="hero">
   <div class="hero-in">
-  <div>
-    <h1>Skriv dig på en gave</h1>
-    <p class="sub">Her kan du se, hvilke gaver andre allerede har købt, og skrive dig på den, du vil give. Asbjørn kan ikke se denne side.</p>
-  </div>
-  <aside class="sheet" id="sheet" aria-label="Karakterark"></aside>
+    <h1>Ønskestormen</h1>
+    <p class="sub">Skriv dig på en gave til Asbjørn. Her kan du se, hvilke gaver andre allerede har taget. Asbjørn kan ikke se denne side.</p>
   </div>
 </header>
 <div class="wrap">
   <form class="lock" id="lock">
-    <h2>Skriv koden</h2>
+    <h2 style="font-size:22px">Skriv dig på en gave</h2>
+    
     <p>Koden har du fået af Mette eller Asbjørn. <b>Er du Asbjørn, så luk siden igen</b> – her står, hvem der giver hvad.</p>
     <input id="code" type="password" autocomplete="off" placeholder="Skriv koden her" aria-label="Kode" required>
     <div class="err" id="err" role="alert"></div>
@@ -28,9 +26,12 @@
     <p><a href="./">← Tilbage til Ønskestormen</a></p>
   </form>
   <div id="app" hidden>
-    <div class="stats" id="stats"></div>
-    <div class="bar">
-      <p><b>Sådan gør du:</b> Find gaven og tryk “Jeg køber den”. Skriv hvem gaven er fra, og tryk “Gem”. Så kan de andre se, at den er taget.</p>
+    <div class="intro">
+      <div class="bar">
+        <p><b>Sådan gør du:</b> Find gaven og tryk “Jeg køber den”. Skriv hvem gaven er fra, og tryk “Gem”. Så kan de andre se, at den er taget.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <aside class="sheet" id="sheet" aria-label="Karakterark"></aside>
     </div>
     <datalist id="navne"></datalist>
     <nav class="tabs" id="tabs" aria-label="Kategorier"></nav>
