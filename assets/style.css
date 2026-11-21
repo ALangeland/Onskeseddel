@@ -189,3 +189,15 @@ background:radial-gradient(circle,#fff 1.6px,transparent 2.2px) 12% 0/26px 4px r
 h2{color:#f6ecdc}
 .card .pill{background:#fffaf2}
 footer{color:#c9c4e4}
+
+/* "Sådan giver du en gave" */
+.how{justify-content:space-between}
+.how h3{margin:0;font:400 26px/1.15 var(--display);letter-spacing:.02em;color:var(--paperink)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:s;width:100%}
+.steps li{counter-increment:s;background:#fffdf8;border:1px solid #efe2c8;border-radius:16px;padding:14px 14px 14px;display:grid;gap:4px;align-content:start}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;margin-bottom:4px;
+ background:linear-gradient(#d65145,#a8392f);color:#fff;font:400 17px var(--display);box-shadow:0 4px 10px -4px #a8392f}
+.steps b{font-size:16px}
+.steps span{font-size:14.5px;line-height:1.45;color:#5d5249}
+@media(max-width:900px) and (min-width:761px){.steps{grid-template-columns:1fr}.steps li{grid-template-columns:auto 1fr;column-gap:12px}.steps li::before{grid-row:span 2;margin:0}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}.steps li{grid-template-columns:auto 1fr;column-gap:12px;padding:12px}.steps li::before{grid-row:span 2;margin:0}}
