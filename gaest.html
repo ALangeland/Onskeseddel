@@ -68,7 +68,7 @@
       const who = byItem(i.id), mine = who.some(c => c.mine);
       const others = who.filter(c => !c.mine).map(c => Onske.esc(c.name));
       let claim = "";
-      if (who.length) claim = `<div class="claim">${mine ? "<b>Du køber den</b>" + (others.length ? " sammen med " + others.join(", ") : "") : "Taget af " + others.join(" og ")}</div>`;
+      if (who.length) claim = `<div class="claim">${mine ? "<b>Du køber den</b> (fra " + Onske.esc(who.find(c => c.mine).name) + ")" + (others.length ? " sammen med " + others.join(", ") : "") : "Taget af " + others.join(" og ")}</div>`;
       const id = Onske.esc(i.id);
       if (open === i.id) {
         claim += `<form class="giver" data-id="${id}">
