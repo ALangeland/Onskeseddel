@@ -10,6 +10,7 @@
 <body>
 <header class="hero">
   <div class="hero-in">
+    <div class="jp" lang="ja">ウィッシュ・ストーム</div>
     <h1>Ønskestormen</h1>
     <p class="sub">Asbjørns ønsker til jul 2026. Tryk på “Se varen” for at se, hvor man kan købe tingen.</p>
   </div>
@@ -33,7 +34,7 @@
   function render() {
     $("#sheet").innerHTML = Onske.sheet(items);
     $("#tabs").innerHTML = Onske.tabs(tab);
-    $("#list").innerHTML = Onske.sections(items, tab, i => Onske.card(i));
+    $("#list").innerHTML = Onske.sections(items, tab, i => Onske.card(i)); Onske.reveal();
   }
   document.addEventListener("click", e => { const t = e.target.closest("[data-tab]"); if (t) { tab = t.dataset.tab; render(); } });
   $("#legend").innerHTML = Onske.legend();

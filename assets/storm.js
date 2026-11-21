@@ -7,13 +7,22 @@
   const sky = document.createElement("div");
   sky.className = "sky";
   sky.setAttribute("aria-hidden", "true");
-  sky.innerHTML = '<div class="clouds"></div><div class="clouds two"></div><div class="flash"></div>' +
+  sky.innerHTML = '<div class="stars"></div><div class="clouds"></div><div class="clouds two"></div><div class="rays"></div><div class="flash"></div>' +
     '<svg class="bolt" viewBox="0 0 1000 600" preserveAspectRatio="none"><polyline points=""/><polyline points=""/></svg>';
   hero.prepend(sky);
   const by = document.createElement("div");
   by.className = "by";
   by.setAttribute("aria-hidden", "true");
   sky.after(by);
+
+  /* titlen: bogstaver der hopper ind + gnister */
+  const h1 = hero.querySelector("h1");
+  if (h1 && !still) {
+    const txt = h1.textContent;
+    h1.setAttribute("aria-label", txt);
+    h1.innerHTML = [...txt].map((c, i) => `<span class="l" aria-hidden="true" style="--i:${i}">${c === " " ? "&nbsp;" : c}</span>`).join("") +
+      '<span class="spark" aria-hidden="true" style="left:-4%;top:-10%">✦</span><span class="spark" aria-hidden="true" style="right:-3%;top:-18%">✦</span><span class="spark" aria-hidden="true" style="right:12%;bottom:-22%">✧</span>';
+  }
   if (still) return;
 
   /* sne */
@@ -27,7 +36,7 @@
   function size() {
     W = innerWidth; H = innerHeight;
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.round(Math.min(170, W * H / 9000));
+    const n = Math.round(Math.min(W < 600 ? 70 : 160, W * H / 9000));
     flakes = Array.from({ length: n }, () => make(true));
   }
   function make(anywhere) {

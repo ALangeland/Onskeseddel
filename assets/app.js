@@ -19,7 +19,7 @@ window.Onske = (() => {
     const [tn, tv] = tier(i.price);
     const url = safeUrl(i.url);
     const meta = [i.shop && "Butik: " + i.shop, i.size && "Str. " + i.size, i.color && "Farve: " + i.color].filter(Boolean);
-    return `<article class="card${taken ? " taken" : ""}" style="--rc:var(${tv})">
+    return `<article class="card${taken ? " taken" : ""}" data-id="${esc(i.id)}" style="--rc:var(${tv})">
       <div class="top"><span class="pill" style="color:var(${tv})">${tn}</span>${i.sure === false ? '<span class="pill maybe">Måske</span>' : ""}<span class="prio" title="Hvor gerne Asbjørn vil have den (1–3 stjerner)">${"★".repeat(+i.prio || 2)}</span></div>
       <h3>${esc(i.title)}</h3>
       <div class="price">${coin}${hasPrice(i.price) ? kr(+i.price) : "Beløb efter eget valg"}${i.priceNote ? `<small>${esc(i.priceNote)}</small>` : ""}</div>
@@ -37,7 +37,7 @@ window.Onske = (() => {
     return shown.map(([k, l]) => {
       const g = sorted.filter(i => (i.cat || "dimser") === k);
       if (!g.length) return "";
-      return `<section><h2>${esc(l)} <small>${g.length} ønsker</small></h2><div class="grid">${g.map(cardFn).join("")}</div></section>`;
+      return `<section><h2><span>${esc(l)}</span> <small>${g.length} ønsker</small></h2><div class="grid">${g.map(cardFn).join("")}</div></section>`;
     }).join("");
   }
 
@@ -65,5 +65,39 @@ window.Onske = (() => {
       <h4>Færdigheder (point ud af 300)</h4><dl class="sk">${prof.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
   }
 
-  return { load, card, sections, tabs, legend, esc, sheet };
+  /* mangarammer der popper ind, når man scroller */
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let io = null;
+  const seen = new Set();
+  const tabKey = () => (document.querySelector(".tab[aria-pressed=true]") || {}).dataset?.tab || "";
+  if (!still && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("anim");
+    io = new IntersectionObserver(es => {
+      let n = 0;
+      for (const e of es) if (e.isIntersecting) { e.target.style.setProperty("--d", n++); e.target.classList.add("in"); seen.add(e.target.dataset.id + tabKey()); io.unobserve(e.target); }
+    }, { rootMargin: "0px 0px -8% 0px" });
+  }
+  function reveal(root = document) {
+    for (const c of root.querySelectorAll(".card:not(.in)")) {
+      if (!io || seen.has(c.dataset.id + tabKey())) c.classList.add("in", "seen"); else io.observe(c);
+    }
+  }
+
+  /* lille fejring når en gave bliver taget */
+  function boom(card) {
+    if (!card || still) return;
+    const words = ["Sådan!", "Juhuu!", "Top!", "Yes!"];
+    const b = document.createElement("div"); b.className = "boom"; b.textContent = words[Math.floor(Math.random() * words.length)];
+    card.append(b);
+    const cols = ["#ffd66b", "#ff3d6e", "#8fd3ff", "#7dffa6", "#fff"];
+    for (let i = 0; i < 16; i++) {
+      const s = document.createElement("span"); s.className = "bit"; s.textContent = i % 3 ? "✦" : "❄";
+      const ang = Math.random() * 6.283, dist = 70 + Math.random() * 90;
+      s.style.cssText = `--x:${Math.cos(ang) * dist}px;--y:${Math.sin(ang) * dist}px;--c:${cols[i % cols.length]}`;
+      card.append(s);
+    }
+    setTimeout(() => card.querySelectorAll(".boom,.bit").forEach(e => e.remove()), 1000);
+  }
+
+  return { load, card, sections, tabs, legend, esc, sheet, reveal, boom };
 })();

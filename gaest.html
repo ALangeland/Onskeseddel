@@ -11,6 +11,7 @@
 <body>
 <header class="hero">
   <div class="hero-in">
+    <div class="jp" lang="ja">ウィッシュ・ストーム</div>
     <h1>Ønskestormen</h1>
     <p class="sub">Skriv dig på en gave til Asbjørn. Her kan du se, hvilke gaver andre allerede har taget. Asbjørn kan ikke se denne side.</p>
   </div>
@@ -84,6 +85,7 @@
         : `<button class="btn fire" data-open="${id}">Jeg køber den</button>`;
       return Onske.card(i, claim, btn, who.length && !mine);
     });
+    Onske.reveal();
   }
 
   async function unlock(c, quiet) {
@@ -107,7 +109,7 @@
     if (busy) return; busy = true; btn.disabled = true;
     try {
       const d = await call({ action, id, name });
-      if (d.ok) { claims = d.claims; open = null; names(); render(); } else btn.textContent = "Det gik galt – prøv igen";
+      if (d.ok) { claims = d.claims; open = null; names(); render(); const c = document.querySelector(`.card[data-id="${CSS.escape(id)}"]`); if (c && action === "claim") Onske.boom(c); } else btn.textContent = "Det gik galt – prøv igen";
     } catch (e) { btn.textContent = "Ingen forbindelse – prøv igen"; }
     finally { busy = false; btn.disabled = false; }
   }
