@@ -84,7 +84,7 @@
       const [d, list] = await Promise.all([call({ action: "list" }), Onske.load()]);
       if (!d.ok) { $("#err").textContent = d.error === "kode" ? "Koden passer ikke. Prøv igen." : "Noget gik galt – prøv igen."; return; }
       sess.set("onskeCode", c); items = list; claims = d.claims;
-      $("#lock").hidden = true; $("#app").hidden = false; render();
+      $("#lock").hidden = true; $("#app").hidden = false; render(); $("#app").scrollIntoView({behavior:"smooth"});
     } catch (e) { if (!quiet) $("#err").textContent = "Kunne ikke få forbindelse. Prøv igen om lidt."; }
     finally { $("#go").disabled = false; }
   }

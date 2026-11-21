@@ -7,6 +7,7 @@
 :root{color-scheme:dark;--bg:#08090c;--panel:#0e1016;--panel2:#141821;--line:#3a3322;--ink:#eceae4;--mute:#a7a296;
 --fire:#d3122f;--fireink:#fff;--mint:#e8c35a;
 --q0:#9aa7a4;--q1:#4fd66a;--q2:#4c9bff;--q3:#b679f0;--q4:#ff8a2a;--q5:#e8c35a}
+[hidden]{display:none!important}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:20px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
