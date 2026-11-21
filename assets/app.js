@@ -23,6 +23,7 @@ window.Onske = (() => {
       <div class="top"><span class="pill" style="color:var(${tv})">${tn}</span>${i.sure === false ? '<span class="pill maybe">Måske</span>' : ""}<span class="prio" title="Hvor gerne">${"★".repeat(+i.prio || 2)}</span></div>
       <h3>${esc(i.title)}</h3>
       <div class="price">${coin}${hasPrice(i.price) ? kr(+i.price) : "Valgfrit beløb"}${i.priceNote ? `<small>${esc(i.priceNote)}</small>` : ""}</div>
+      <div class="bind">Bindes ved gave</div>
       ${i.desc ? `<p class="desc">${esc(i.desc)}</p>` : ""}
       ${meta.length ? `<ul class="meta">${meta.map(m => `<li>${esc(m)}</li>`).join("")}</ul>` : ""}
       ${claimHtml}
