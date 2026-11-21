@@ -1,17 +1,17 @@
 /* VOICE: blød, varm og hyggelig jul – som en håndmalet animationsfilm
    IDEA: Ønskestormen – en lille bindingsværksby en snestormsaften, mens tordenskyer tårner sig op
    PICTURE: malet by med tårn, juletræ, røg fra skorstene og blinkende lyskæder; bløde skyer og lyn
-   COLOUR and TYPE: dyb aftenblå himmel, varmt lampelys, sne, varm rød; Zen Maru Gothic + Inter
+   COLOUR and TYPE: maleriets farver – lavendel tusmørke, varmt lampelys, rosa puds, salviegrøn, sne, kransens røde; Zen Maru Gothic + Inter
    LAYOUT: stor byscene med titel, derunder info og karakterark, faner og ønsker på papirkort */
 @import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap");
-:root{color-scheme:dark;--bg:#111b33;--ink:#f4f5ff;--mute:#b6bbe0;--paper:#fbf5e8;--paperink:#2b2420;--line:#3a2c24;
+:root{color-scheme:dark;--bg:#1d2142;--bg2:#2a2d57;--rose:#e9b3a6;--sage:#7f9c86;--amber:#f2b766;--lav:#8c86b4;--ink:#f4f5ff;--mute:#b6bbe0;--paper:#fbf5e8;--paperink:#2b2420;--line:#3a2c24;
 --pink:#d2473d;--pink2:#a8322c;--gold:#ffd66b;--sky:#8fd3ff;
---q0:#5b6470;--q1:#1f8a3b;--q2:#1f5fd1;--q3:#8a3fc4;--q4:#d4581a;--q5:#a87c12;
+--q0:#8a8f99;--q1:#6f9c7a;--q2:#6f86c4;--q3:#9b7fc4;--q4:#d98a4a;--q5:#c9a24a;
 --round:"Zen Maru Gothic",Inter,system-ui,sans-serif}
 [hidden]{display:none!important}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:20px;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:radial-gradient(ellipse 60% 40% at 15% 30%,#f2b76614,transparent 70%) fixed,radial-gradient(ellipse 50% 40% at 85% 70%,#e9b3a612,transparent 70%) fixed,linear-gradient(var(--bg2),var(--bg) 60%) fixed,var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent}
 a{color:var(--gold)}
 
 /* ---------- byscenen ---------- */
@@ -32,9 +32,9 @@ background:radial-gradient(ellipse 90% 40% at 50% 100%,#f3b56a40,transparent 70%
 @keyframes flash{0%{opacity:0}4%{opacity:.85}10%{opacity:.1}16%{opacity:.55}100%{opacity:0}}
 @keyframes bolt{0%{opacity:0}4%{opacity:1}10%{opacity:.15}16%{opacity:1}45%{opacity:0}100%{opacity:0}}
 /* ---------- maleriet og dets levende detaljer ---------- */
-.hero.has-banner{background:#1a2b55}
+.hero.has-banner{background:#3a3d66}
 .hero.has-banner .clouds,.hero.has-banner .stars{display:none}
-.hero.has-banner::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(#0b143055,#0b143000 30%,#0b143000 70%,var(--bg) 100%)}
+.hero.has-banner::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(#1d214244,#1d214200 30%,#1d214200 72%,var(--bg2) 100%)}
 .scene{position:absolute;z-index:0;will-change:transform;pointer-events:none}
 .scene .paint{position:absolute;inset:0;background:center/100% 100% no-repeat}
 .scene i{position:absolute;display:block;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen}
@@ -78,30 +78,30 @@ h1 .l:hover{animation:boing .5s}
 /* ---------- indhold ---------- */
 .wrap{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:clamp(18px,3vw,32px) max(4vw,14px) 64px}
 .intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:18px;align-items:stretch;margin-bottom:24px}
-.bar,.lock,.card{background:var(--paper);color:var(--paperink);border:1px solid #e2d6bd;border-radius:18px;box-shadow:0 14px 30px -16px #000c,inset 0 0 40px #e9dcc066}
-.bar{display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:flex-start;padding:18px 20px;margin:0;
+.bar,.lock,.card{background:linear-gradient(#fdf8ee,#f6ecdc);color:var(--paperink);border:1px solid #f1e2c6;border-radius:20px;box-shadow:0 0 0 1px #00000010,0 18px 38px -18px #0b0f2a,0 0 50px -30px var(--amber)}
+.bar{display:flex;flex-direction:column;gap:14px;justify-content:center;background:linear-gradient(#fdf8ee,#f6ecdc) padding-box;align-items:flex-start;padding:18px 20px;margin:0;
 }
 .bar p{margin:0;font-size:17px}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:0}
 .stat{background:#fff;border:1px solid #e2d6bd;border-radius:12px;padding:6px 12px}
 .stat b{font:900 22px var(--round);margin-right:6px;color:var(--pink2)}.stat span{color:#4b4766;font-size:14px}
-.sheet{padding:16px 18px;font-size:14px;background:linear-gradient(#22345f,#16244a);border:1px solid #ffe7b055;border-radius:18px;box-shadow:0 14px 30px -16px #000c}
-.sheet .nm{font:900 24px/1.1 var(--round);color:var(--gold)}
+.sheet{padding:16px 18px;font-size:14px;background:linear-gradient(160deg,#4a4a80,#2c2d5a 70%);border:1px solid #f2b76666;border-radius:20px;box-shadow:0 18px 38px -18px #0b0f2a,inset 0 1px 0 #ffffff22}
+.sheet .nm{font:900 24px/1.1 var(--round);color:#ffe2a8}
 .sheet .cl{color:var(--mute);margin:2px 0 10px}
 .xp{height:12px;border-radius:999px;background:#0b1430;overflow:hidden;box-shadow:inset 0 1px 3px #0008}
-.xp i{display:block;height:100%;background:linear-gradient(90deg,var(--pink2),var(--pink),#ffb3c6);background-size:200% 100%;animation:shine 2.5s linear infinite;border-radius:999px}
+.xp i{display:block;height:100%;background:linear-gradient(90deg,#c9564a,var(--amber),#ffe2a8);background-size:200% 100%;animation:shine 2.5s linear infinite;border-radius:999px}
 @keyframes shine{to{background-position:-200% 0}}
 .xpl{display:flex;justify-content:space-between;gap:8px;color:var(--mute);font-size:12px;margin:4px 0 10px}
 .sk{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;margin:0}
-.sk dt{color:var(--ink)}.sk dd{margin:0;color:#b6e3a8;font-variant-numeric:tabular-nums;text-align:right}
+.sk dt{color:var(--ink)}.sk dd{margin:0;color:#ffe2a8;font-variant-numeric:tabular-nums;text-align:right}
 .sheet h4{margin:10px 0 4px;font-size:12px;color:var(--gold);font-weight:700}
 .sheet:empty{display:none}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .tab{font:700 15px var(--round);min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #e2d6bd;background:var(--paper);color:var(--paperink);cursor:pointer;box-shadow:0 6px 14px -8px #000a;transition:transform .15s,background .2s}
-.tab[aria-pressed=true]{background:var(--pink);color:#fff}
+.tab[aria-pressed=true]{background:linear-gradient(#c9564a,#a8392f);color:#fff;border-color:#a8392f}
 .tab:active{transform:scale(.96)}
 h2{font:700 clamp(22px,3vw,28px)/1.2 var(--round);margin:34px 0 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-h2 span{background:#f3e3b8;color:var(--paperink);padding:4px 16px;border-radius:999px;display:inline-block;box-shadow:0 8px 18px -10px #000}
+h2 span{background:linear-gradient(#f6d5ca,#e9b3a6);color:var(--paperink);padding:4px 16px;border-radius:999px;display:inline-block;box-shadow:0 8px 18px -10px #000}
 h2 small{font:500 14px Inter,sans-serif;color:var(--mute)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:20px}
 .card{position:relative;padding:18px 18px 16px;display:flex;flex-direction:column;gap:9px;transition:transform .35s cubic-bezier(.2,.9,.3,1),box-shadow .35s}
@@ -138,7 +138,7 @@ h2 small{font:500 14px Inter,sans-serif;color:var(--mute)}
 .giver label{font:700 14px var(--round)}
 .giver .actions{padding-top:2px}
 .note{color:var(--mute);font-size:15px;text-align:center;padding:30px 10px}
-.legend{display:flex;gap:6px;flex-wrap:wrap;margin-top:34px;font-size:13px;color:var(--mute);align-items:center}
+.legend{display:flex;gap:6px;flex-wrap:wrap;margin-top:34px;font-size:13px;color:#c9c4e4;align-items:center}
 .lock{max-width:440px;margin:0 auto 40px;padding:22px;display:grid;gap:12px}
 .lock h2{margin:0}
 .lock p{margin:0;color:#4b4766;font-size:15px}
@@ -168,10 +168,11 @@ footer{margin-top:40px;color:var(--mute);font-size:14px;text-align:center}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.anim .card{opacity:1}}
 
 /* billede eller tegnet ikon øverst på hvert kort */
-.thumb{margin:-2px -2px 2px;aspect-ratio:16/8;border-radius:12px;display:grid;place-items:center;overflow:hidden;
-background:radial-gradient(ellipse at 50% 60%,#fff 0%,#f3ead6 70%);border:1px solid #eadfc8}
+.thumb{margin:-2px -2px 2px;aspect-ratio:4/3;border-radius:14px;display:grid;place-items:center;overflow:hidden;
+background:radial-gradient(ellipse at 50% 55%,#fff 0%,#fff 45%,#f6ecdc 100%);border:1px solid #f1e2c6}
 .thumb svg{width:58%;height:auto;max-height:100%;filter:drop-shadow(0 6px 6px #5a453633);transition:transform .4s cubic-bezier(.2,.9,.3,1)}
-.thumb img{width:100%;height:100%;object-fit:contain;background:#fff;padding:8px}
+.thumb img{width:100%;height:100%;object-fit:contain;padding:12px;transition:transform .5s cubic-bezier(.2,.9,.3,1)}
+.card:hover .thumb img{transform:scale(1.05)}
 .card:hover .thumb svg{transform:translateY(-4px) rotate(-3deg) scale(1.04)}
 .hero:not(.has-banner){min-height:clamp(340px,32vw,440px)}
 
@@ -184,3 +185,8 @@ filter:drop-shadow(0 2px 2px #0003);transition:transform .4s}
 .card:hover .cap{transform:translateY(1px) scaleY(.85)}
 .card:hover .cap::before{animation:sift 1s ease-in both}.card:hover .cap::after{animation:sift 1.1s .12s ease-in both}
 @keyframes sift{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(70px)}}
+
+/* sektioner: blød glød fra byens lys */
+h2{color:#f6ecdc}
+.card .pill{background:#fffaf2}
+footer{color:#c9c4e4}
