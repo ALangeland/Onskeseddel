@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asbjørns ønskeseddel 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='%23e8c35a'/></svg>">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <h1>Asbjørns ønskeseddel 2026</h1>
+    <p class="sub">Julens quest-log. Klik på et ønske for at se varen. Skal du give en gave, så brug gæstesiden og sæt dig på den, så ingen køber det samme to gange.</p>
+  </div>
+</header>
+<div class="wrap">
+  <div class="stats" id="stats"></div>
+  <div class="bar"><p><b>Skal du give en gave?</b> Gå til gæstesiden og skriv koden, du har fået af Mette eller Asbjørn.</p><a class="btn fire" href="gaest.html">Til gæstesiden →</a></div>
+  <nav class="tabs" id="tabs" aria-label="Kategorier"></nav>
+  <main id="list"><p class="note">Henter quest-loggen…</p></main>
+  <div class="legend" id="legend"></div>
+  <footer>Ønskerne ligger i <code>data/onsker.json</code> og kan rettes direkte på GitHub.</footer>
+</div>
+<script src="assets/app.js"></script>
+<script>
+{
+  let items = [], tab = "alle";
+  const $ = s => document.querySelector(s);
+  function render() {
+    const maybe = items.filter(i => i.sure === false).length;
+    $("#stats").innerHTML = `<div class="stat"><b>${items.length}</b><span>quests i loggen</span></div>` +
+      (maybe ? `<div class="stat"><b>${maybe}</b><span>er stadig “måske”</span></div>` : "");
+    $("#tabs").innerHTML = Onske.tabs(tab);
+    $("#list").innerHTML = Onske.sections(items, tab, i => Onske.card(i));
+  }
+  document.addEventListener("click", e => { const t = e.target.closest("[data-tab]"); if (t) { tab = t.dataset.tab; render(); } });
+  $("#legend").innerHTML = Onske.legend();
+  Onske.load().then(d => { items = d; render(); }).catch(() => { $("#list").innerHTML = '<p class="note">Kunne ikke hente ønskerne lige nu.</p>'; });
+}
+</script>
+</body>
+</html>
