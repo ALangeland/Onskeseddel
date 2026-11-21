@@ -47,11 +47,3 @@ Send koden og linket til gæstesiden til gæsterne, så er det klar.
 
 Retter du senere i scriptet, skal du vælge **Implementer → Administrer implementeringer → rediger → Ny version**, så URL'en forbliver den samme.
 
-## Egne billeder
-
-Upload dine egne fotos til mappen `assets/` med præcis disse navne. Siden bruger dem automatisk, og et billede, der ikke findes, bliver bare ikke vist.
-
-- `banner.jpg` – stort baggrundsbillede bag titlen, fx din motorcykel. Gerne liggende, ca. 1600 px bredt.
-- `foto1.jpg`, `foto2.jpg`, `foto3.jpg` – tre små stående billeder i hjørnet, fx printeren, cyklen og et screenshot af din karakter.
-
-Upload på GitHub med **Add file → Upload files** inde i mappen `assets`.

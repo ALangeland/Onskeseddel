@@ -50,5 +50,20 @@ window.Onske = (() => {
       '<span class="pill" style="color:var(--q5)">Mystisk = valgfrit beløb</span>';
   }
 
-  return { load, card, sections, tabs, legend, esc };
+  function sheet(items, extra = []) {
+    const now = new Date(), y = now.getFullYear();
+    const start = new Date(y, 0, 1), eve = new Date(y, 11, 24);
+    const pct = Math.min(100, Math.max(0, (now - start) / (eve - start) * 100));
+    const days = Math.max(0, Math.ceil((eve - now) / 864e5));
+    const maybe = items.filter(i => i.sure === false).length;
+    const stats = [["Quests i loggen", items.length], ["Stadig “måske”", maybe], ...extra];
+    const prof = [["3D-print", "300/300"], ["Motorcykel-mekanik", "285/300"], ["Makita-magi", "300/300"], ["Tålmodighed til jul", days ? "1/300" : "300/300"]];
+    return `<div class="nm">Asbjørn</div><div class="cl">Level ${y} · Gave-modtager · Ingeniør</div>
+      <div class="xp" role="progressbar" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100" aria-label="XP til juleaften"><i style="width:${pct.toFixed(1)}%"></i></div>
+      <div class="xpl"><span>XP til juleaften</span><span>${days ? days + " dage tilbage" : "Det er jul!"}</span></div>
+      <dl class="sk">${stats.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+      <h4>Professions</h4><dl class="sk">${prof.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
+  }
+
+  return { load, card, sections, tabs, legend, esc, sheet };
 })();

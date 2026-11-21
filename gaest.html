@@ -15,11 +15,7 @@
     <h1>Gæstesiden</h1>
     <p class="sub">Her kan du sætte dig på en gave til Asbjørn. Asbjørn må ikke se denne side, så den er låst med en kode.</p>
   </div>
-  <div class="fotos" aria-hidden="true">
-    <figure><img src="assets/foto1.jpg" alt="" onerror="this.parentNode.remove()"></figure>
-    <figure><img src="assets/foto2.jpg" alt="" onerror="this.parentNode.remove()"></figure>
-    <figure><img src="assets/foto3.jpg" alt="" onerror="this.parentNode.remove()"></figure>
-  </div>
+  <aside class="sheet" id="sheet" aria-label="Karakterark"></aside>
   </div>
 </header>
 <div class="wrap">
@@ -66,6 +62,7 @@
     const byItem = id => claims.filter(c => c.id === id);
     const free = items.filter(i => !byItem(i.id).length).length;
     $("#stats").innerHTML = `<div class="stat"><b>${free}</b><span>ledige quests</span></div><div class="stat"><b>${items.length - free}</b><span>er taget</span></div>`;
+    $("#sheet").innerHTML = Onske.sheet(items, [["Ledige", free], ["Taget", items.length - free]]);
     $("#tabs").innerHTML = Onske.tabs(tab);
     $("#list").innerHTML = Onske.sections(items, tab, i => {
       const who = byItem(i.id), mine = who.some(c => c.mine);

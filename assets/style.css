@@ -1,8 +1,8 @@
 /* VOICE: nørdet og mørk, men ryddelig – en quest-log man faktisk kan shoppe fra
    IDEA: spillets item-tooltips: hvert ønske er et item med rarity-farve, guldmønt og flavor-tekst
-   PICTURE: dit eget bannerfoto + op til tre egne fotos (motorcykel, printer, karakter)
+   PICTURE: et karakterark i hjørnet: level, XP-bar der tæller ned til juleaften, professions
    COLOUR and TYPE: næsten sort grund, Ducati-rød accent, guld til mønter; Cinzel + Inter
-   LAYOUT: fotobanner med titel, faner, tooltip-kort; altid mørkt */
+   LAYOUT: titel + karakterark, faner, tooltip-kort; altid mørkt */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600;700&display=swap");
 :root{color-scheme:dark;--bg:#08090c;--panel:#0e1016;--panel2:#141821;--line:#3a3322;--ink:#eceae4;--mute:#a7a296;
 --fire:#d3122f;--fireink:#fff;--mint:#e8c35a;
@@ -11,12 +11,18 @@
 html{scroll-padding-top:20px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
 a{color:var(--mint)}
-.hero{position:relative;min-height:clamp(300px,40vw,480px);display:flex;align-items:flex-end;
-background:linear-gradient(90deg,#08090cee 0%,#08090c99 45%,#08090c22 100%),url(banner.jpg) center/cover no-repeat,radial-gradient(ellipse at 75% 30%,#4a0d17 0%,#14070a 45%,#08090c 80%)}
+.hero{position:relative;min-height:clamp(300px,34vw,420px);display:flex;align-items:flex-end;
+background:radial-gradient(ellipse at 75% 30%,#4a0d17 0%,#14070a 45%,#08090c 80%)}
 .hero-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}
-.fotos{display:flex;gap:10px}
-.fotos figure{margin:0;width:clamp(90px,12vw,150px);aspect-ratio:3/4;border:2px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:0 10px 30px #000a}
-.fotos img{width:100%;height:100%;object-fit:cover;display:block}
+.sheet{width:min(340px,100%);background:linear-gradient(#141821f5,#08090cf5);border:1px solid #5b5236;outline:1px solid #000;border-radius:6px;padding:14px 16px;font-size:14px;box-shadow:0 14px 40px #000c}
+.sheet .nm{font-family:Cinzel,serif;font-weight:900;font-size:22px;color:var(--q4);line-height:1.1}
+.sheet .cl{color:var(--mute);margin:2px 0 10px}
+.xp{height:14px;border:1px solid #5b5236;border-radius:3px;background:#000;overflow:hidden}
+.xp i{display:block;height:100%;background:linear-gradient(90deg,#6a2bb8,#b679f0)}
+.xpl{display:flex;justify-content:space-between;gap:8px;color:var(--mute);font-size:12px;margin:4px 0 10px}
+.sk{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;margin:0}
+.sk dt{color:var(--ink)}.sk dd{margin:0;color:var(--q1);font-variant-numeric:tabular-nums;text-align:right}
+.sheet h4{margin:10px 0 4px;font-size:12px;color:var(--q5);font-weight:700}
 .hero::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;background:linear-gradient(transparent,var(--bg))}
 .hero-in{position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;padding:clamp(20px,4vw,44px) max(4vw,14px)}
 h1{font-family:Cinzel,Georgia,serif;font-weight:900;font-size:clamp(32px,5.6vw,56px);line-height:1.05;margin:0;text-wrap:balance;text-shadow:0 2px 0 #000,0 0 24px #d3122f66}
@@ -67,4 +73,5 @@ input{font:16px Inter,sans-serif;padding:10px 12px;border-radius:10px;border:1px
 .err{color:#ff8a7a;font-size:14px;min-height:1.2em}
 footer{margin-top:40px;color:var(--mute);font-size:13px}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
-@media(max-width:600px){.hero{min-height:360px;background:linear-gradient(#08090c33,#08090cee 70%),url(banner.jpg) center/cover no-repeat,radial-gradient(ellipse at 70% 20%,#4a0d17,#08090c 75%)}.hero-in{grid-template-columns:1fr}.fotos figure{width:30%}}
+@media(max-width:600px){.hero{min-height:0}.hero-in{grid-template-columns:1fr}}
+.sheet:empty{display:none}
