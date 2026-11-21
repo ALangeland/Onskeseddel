@@ -31,7 +31,8 @@ window.Onske = (() => {
   }
 
   function sections(items, tab, cardFn) {
-    const sorted = items.slice().sort((a, b) => (b.prio || 0) - (a.prio || 0));
+    const pr = i => hasPrice(i.price) ? +i.price : Infinity;
+    const sorted = items.slice().sort((a, b) => pr(a) - pr(b) || (b.prio || 0) - (a.prio || 0));
     const shown = tab === "alle" ? CATS : CATS.filter(c => c[0] === tab);
     return shown.map(([k, l]) => {
       const g = sorted.filter(i => (i.cat || "dimser") === k);
