@@ -1,13 +1,13 @@
 /* VOICE: blød, varm og hyggelig jul – som en håndmalet animationsfilm
    IDEA: Ønskestormen – en lille bindingsværksby en snestormsaften, mens tordenskyer tårner sig op
    PICTURE: malet by med tårn, juletræ, røg fra skorstene og blinkende lyskæder; bløde skyer og lyn
-   COLOUR and TYPE: maleriets farver – lavendel tusmørke, varmt lampelys, rosa puds, salviegrøn, sne, kransens røde; Zen Maru Gothic + Inter
+   COLOUR and TYPE: maleriets farver – lavendel tusmørke, varmt lampelys, rosa puds, salviegrøn, sne, kransens røde; Marcellus + Inter
    LAYOUT: stor byscene med titel, derunder info og karakterark, faner og ønsker på papirkort */
-@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500;600;700;800&display=swap");
 :root{color-scheme:dark;--bg:#1d2142;--bg2:#2a2d57;--rose:#e9b3a6;--sage:#7f9c86;--amber:#f2b766;--lav:#8c86b4;--ink:#f4f5ff;--mute:#b6bbe0;--paper:#fbf5e8;--paperink:#2b2420;--line:#3a2c24;
 --pink:#d2473d;--pink2:#a8322c;--gold:#ffd66b;--sky:#8fd3ff;
 --q0:#8a8f99;--q1:#6f9c7a;--q2:#6f86c4;--q3:#9b7fc4;--q4:#d98a4a;--q5:#c9a24a;
---round:"Zen Maru Gothic",Inter,system-ui,sans-serif}
+--round:Inter,system-ui,sans-serif;--display:Marcellus,"Cormorant Garamond",Georgia,serif}
 [hidden]{display:none!important}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:20px;-webkit-text-size-adjust:100%}
@@ -62,7 +62,7 @@ background:radial-gradient(ellipse 90% 40% at 50% 100%,#f3b56a40,transparent 70%
 
 .hero-in{position:relative;z-index:3;width:100%;max-width:1240px;margin:0 auto;padding:clamp(30px,5vw,60px) max(4vw,16px) 0;text-align:center}
 .jp{display:inline-block;font:700 clamp(13px,1.6vw,15px)/1 var(--round);letter-spacing:.4em;color:#ffe7b0;background:#0b143066;border:1px solid #ffe7b088;border-radius:999px;padding:7px 14px 7px 20px;margin-bottom:14px;backdrop-filter:blur(4px);animation:rise 1s .1s both ease-out}
-h1{position:relative;white-space:nowrap;font:900 clamp(46px,9vw,108px)/1.05 var(--round);margin:0;letter-spacing:.02em;color:#fffaf0;text-shadow:0 2px 0 #2b3a66,0 6px 24px #0b1430aa,0 0 40px #ffd99a55}
+h1{position:relative;white-space:nowrap;font:400 clamp(44px,8.4vw,104px)/1.05 var(--display);margin:0;letter-spacing:.04em;color:#fffaf0;text-shadow:0 2px 0 #2b3a66,0 6px 24px #0b1430aa,0 0 40px #ffd99a55}
 h1 .l{display:inline-block;animation:float-in 1.1s calc(var(--i)*70ms + .2s) both cubic-bezier(.2,.9,.3,1)}
 h1 .l:hover{animation:boing .5s}
 @keyframes float-in{0%{opacity:0;transform:translateY(26px);filter:blur(6px)}100%{opacity:1;transform:none;filter:none}}
@@ -84,9 +84,9 @@ h1 .l:hover{animation:boing .5s}
 .bar p{margin:0;font-size:17px}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:0}
 .stat{background:#fff;border:1px solid #e2d6bd;border-radius:12px;padding:6px 12px}
-.stat b{font:900 22px var(--round);margin-right:6px;color:var(--pink2)}.stat span{color:#4b4766;font-size:14px}
+.stat b{font:400 24px var(--display);margin-right:6px;color:var(--pink2)}.stat span{color:#4b4766;font-size:14px}
 .sheet{padding:16px 18px;font-size:14px;background:linear-gradient(160deg,#4a4a80,#2c2d5a 70%);border:1px solid #f2b76666;border-radius:20px;box-shadow:0 18px 38px -18px #0b0f2a,inset 0 1px 0 #ffffff22}
-.sheet .nm{font:900 24px/1.1 var(--round);color:#ffe2a8}
+.sheet .nm{font:400 26px/1.1 var(--display);letter-spacing:.03em;color:#ffe2a8}
 .sheet .cl{color:var(--mute);margin:2px 0 10px}
 .xp{height:12px;border-radius:999px;background:#0b1430;overflow:hidden;box-shadow:inset 0 1px 3px #0008}
 .xp i{display:block;height:100%;background:linear-gradient(90deg,#c9564a,var(--amber),#ffe2a8);background-size:200% 100%;animation:shine 2.5s linear infinite;border-radius:999px}
@@ -97,10 +97,10 @@ h1 .l:hover{animation:boing .5s}
 .sheet h4{margin:10px 0 4px;font-size:12px;color:var(--gold);font-weight:700}
 .sheet:empty{display:none}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
-.tab{font:700 15px var(--round);min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #e2d6bd;background:var(--paper);color:var(--paperink);cursor:pointer;box-shadow:0 6px 14px -8px #000a;transition:transform .15s,background .2s}
+.tab{font:600 15px var(--round);min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #e2d6bd;background:var(--paper);color:var(--paperink);cursor:pointer;box-shadow:0 6px 14px -8px #000a;transition:transform .15s,background .2s}
 .tab[aria-pressed=true]{background:linear-gradient(#c9564a,#a8392f);color:#fff;border-color:#a8392f}
 .tab:active{transform:scale(.96)}
-h2{font:700 clamp(22px,3vw,28px)/1.2 var(--round);margin:34px 0 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+h2{font:400 clamp(24px,3vw,30px)/1.2 var(--display);letter-spacing:.02em;margin:34px 0 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 h2 span{background:linear-gradient(#f6d5ca,#e9b3a6);color:var(--paperink);padding:4px 16px;border-radius:999px;display:inline-block;box-shadow:0 8px 18px -10px #000}
 h2 small{font:500 14px Inter,sans-serif;color:var(--mute)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:20px}
@@ -113,11 +113,11 @@ h2 small{font:500 14px Inter,sans-serif;color:var(--mute)}
 .anim .card.in:not(.seen){animation:panel .8s calc(var(--d,0)*90ms) both cubic-bezier(.2,.9,.3,1)}
 @keyframes panel{0%{opacity:0;transform:translateY(34px) scale(.97)}100%{opacity:1;transform:none}}
 .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px}
-.pill{font:700 12px var(--round);padding:2px 10px;border-radius:999px;border:2px solid currentColor;white-space:nowrap;background:#fff}
+.pill{font:600 12px var(--round);padding:2px 10px;border-radius:999px;border:2px solid currentColor;white-space:nowrap;background:#fff}
 .pill.maybe{color:#9a6b00;border-style:dashed}
 .prio{margin-left:auto;color:#d9a22a;letter-spacing:1px;font-size:16px}
-.card h3{margin:0;font:700 19px/1.25 var(--round);color:var(--paperink)}
-.price{font:900 22px var(--round);white-space:nowrap;display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--paperink)}
+.card h3{margin:0;font:600 17px/1.3 var(--round);letter-spacing:-.005em;color:var(--paperink)}
+.price{font:700 21px var(--round);letter-spacing:-.01em;white-space:nowrap;display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--paperink)}
 .price svg{flex:none}
 .price small{font:500 13px Inter,sans-serif;color:#5d5978;white-space:normal}
 .desc{position:relative;margin:6px 0 0;font-size:15px;color:#4a3f36;background:#fffdf8;border:1px solid #e9dfca;border-radius:14px;padding:9px 12px;font-style:italic}
@@ -125,7 +125,7 @@ h2 small{font:500 14px Inter,sans-serif;color:var(--mute)}
 .meta{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
 .meta li{font-size:13px;background:#f1eee4;border:1.5px solid #cfc8b4;border-radius:6px;padding:1px 8px;color:#3b3752}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
-.btn{font:700 15px var(--round);min-height:46px;padding:0 18px;border-radius:999px;border:1px solid #d9cbb0;background:#fffdf8;color:var(--paperink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-shadow:0 6px 14px -8px #0008;transition:transform .15s,box-shadow .15s}
+.btn{font:600 15px var(--round);min-height:46px;padding:0 18px;border-radius:999px;border:1px solid #d9cbb0;background:#fffdf8;color:var(--paperink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-shadow:0 6px 14px -8px #0008;transition:transform .15s,box-shadow .15s}
 .btn:active{transform:scale(.96)}
 .btn.fire{background:linear-gradient(#d65145,#b13a30);color:#fff;border-color:#a8322c;box-shadow:0 10px 20px -10px #a8322c}
 .btn.fire:hover{transform:translateY(-2px)}
@@ -135,7 +135,7 @@ h2 small{font:500 14px Inter,sans-serif;color:var(--mute)}
 .claim{font-size:14px;background:#eef6e8;border-radius:12px;padding:7px 12px;border:1px solid #cfe2c2;color:var(--paperink)}
 .claim b{color:#2f7a3d}
 .giver{display:grid;gap:6px;background:#fff5ee;border:1px solid #e9b8a6;border-radius:14px;padding:12px;animation:rise .4s both ease-out}
-.giver label{font:700 14px var(--round)}
+.giver label{font:600 14px var(--round)}
 .giver .actions{padding-top:2px}
 .note{color:var(--mute);font-size:15px;text-align:center;padding:30px 10px}
 .legend{display:flex;gap:6px;flex-wrap:wrap;margin-top:34px;font-size:13px;color:#c9c4e4;align-items:center}
@@ -148,7 +148,7 @@ input{font:16px Inter,sans-serif;padding:10px 14px;border-radius:12px;border:1px
 footer{margin-top:40px;color:var(--mute);font-size:14px;text-align:center}
 
 /* succes-eksplosion når man tager en gave */
-.boom{position:absolute;left:50%;top:50%;z-index:5;pointer-events:none;font:900 32px var(--round);color:#c8423a;text-shadow:0 0 0 #fff,2px 2px 0 #fff,-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff,0 8px 18px #0005;transform:translate(-50%,-50%);animation:boom 1.1s both cubic-bezier(.2,.9,.3,1)}
+.boom{position:absolute;left:50%;top:50%;z-index:5;pointer-events:none;font:400 36px var(--display);color:#c8423a;text-shadow:0 0 0 #fff,2px 2px 0 #fff,-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff,0 8px 18px #0005;transform:translate(-50%,-50%);animation:boom 1.1s both cubic-bezier(.2,.9,.3,1)}
 @keyframes boom{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-110%) scale(1)}}
 .bit{position:absolute;left:50%;top:50%;z-index:4;pointer-events:none;font-size:18px;color:var(--c);animation:bit .8s ease-out both}
 @keyframes bit{0%{opacity:1;transform:translate(-50%,-50%)}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(220deg)}}
@@ -157,7 +157,7 @@ footer{margin-top:40px;color:var(--mute);font-size:14px;text-align:center}
 @media(max-width:600px){
   .hero{min-height:480px}
   .hero-in{padding-top:34px}
-  h1{font-size:clamp(32px,10.6vw,58px)}
+  h1{font-size:clamp(34px,11vw,60px);letter-spacing:.02em}
   .spark{display:none}
   .card:hover{transform:none}
   .card:hover{transform:translateY(-5px);box-shadow:0 22px 36px -18px #000e,inset 0 0 40px #e9dcc066}
