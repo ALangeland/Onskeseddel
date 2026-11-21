@@ -30,9 +30,9 @@
   <div id="app" hidden>
     <div class="stats" id="stats"></div>
     <div class="bar">
-      <p><b>Sådan gør du:</b> 1) Skriv dit navn her. 2) Find gaven og tryk “Jeg køber den”. Så kan de andre se, at den er taget.</p>
-      <input id="name" maxlength="40" placeholder="Dit navn, fx Mormor" style="max-width:260px" aria-label="Dit navn">
+      <p><b>Sådan gør du:</b> Find gaven og tryk “Jeg køber den”. Skriv hvem gaven er fra, og tryk “Gem”. Så kan de andre se, at den er taget.</p>
     </div>
+    <datalist id="navne"></datalist>
     <nav class="tabs" id="tabs" aria-label="Kategorier"></nav>
     <main id="list"></main>
     <div class="legend" id="legend"></div>
@@ -49,7 +49,7 @@
   const sess = { get(k) { try { return sessionStorage.getItem(k) } catch (e) { return null } }, set(k, v) { try { sessionStorage.setItem(k, v) } catch (e) {} } };
   let key = store.get("onskeKey");
   if (!key) { key = Array.from(crypto.getRandomValues(new Uint8Array(12)), b => b.toString(16).padStart(2, "0")).join(""); store.set("onskeKey", key); }
-  let code = "", items = [], claims = [], tab = "alle", busy = false;
+  let code = "", items = [], claims = [], tab = "alle", busy = false, open = null;
 
   async function call(params) {
     const u = new URL(API);
@@ -70,9 +70,16 @@
       let claim = "";
       if (who.length) claim = `<div class="claim">${mine ? "<b>Du køber den</b>" + (others.length ? " sammen med " + others.join(", ") : "") : "Taget af " + others.join(" og ")}</div>`;
       const id = Onske.esc(i.id);
-      const btn = mine ? `<button class="btn" data-unclaim="${id}">Fortryd</button>`
-        : who.length ? `<button class="btn" data-claim="${id}">Vi deler den</button>`
-        : `<button class="btn fire" data-claim="${id}">Jeg køber den</button>`;
+      if (open === i.id) {
+        claim += `<form class="giver" data-id="${id}">
+          <label for="fra-${id}">Hvem er gaven fra?</label>
+          <input id="fra-${id}" name="fra" list="navne" maxlength="40" required placeholder="Fx Mormor og Morfar" value="${Onske.esc(store.get("onskeNavn") || "")}">
+          <div class="actions"><button class="btn fire">Gem</button><button type="button" class="btn" data-cancel>Annuller</button></div>
+        </form>`;
+      }
+      const btn = open === i.id ? "" : mine ? `<button class="btn" data-unclaim="${id}">Fortryd</button>`
+        : who.length ? `<button class="btn" data-open="${id}">Vi deler den</button>`
+        : `<button class="btn fire" data-open="${id}">Jeg køber den</button>`;
       return Onske.card(i, claim, btn, who.length && !mine);
     });
   }
@@ -83,30 +90,39 @@
     try {
       const [d, list] = await Promise.all([call({ action: "list" }), Onske.load()]);
       if (!d.ok) { $("#err").textContent = d.error === "kode" ? "Koden passer ikke. Prøv igen." : "Noget gik galt – prøv igen."; return; }
-      sess.set("onskeCode", c); items = list; claims = d.claims;
+      sess.set("onskeCode", c); items = list; claims = d.claims; names();
       $("#lock").hidden = true; $("#app").hidden = false; render(); $("#app").scrollIntoView({behavior:"smooth"});
     } catch (e) { if (!quiet) $("#err").textContent = "Kunne ikke få forbindelse. Prøv igen om lidt."; }
     finally { $("#go").disabled = false; }
   }
 
-  async function act(action, id, btn) {
-    const name = $("#name").value.trim();
-    if (action === "claim" && !name) { $("#name").focus(); $("#name").placeholder = "Skriv dit navn først"; $("#name").scrollIntoView({block:"center"}); return; }
+  function names() {
+    const set = new Set(claims.map(c => c.name).filter(Boolean));
+    $("#navne").innerHTML = [...set].map(n => `<option value="${Onske.esc(n)}">`).join("");
+  }
+
+  async function act(action, id, btn, name = "") {
     if (busy) return; busy = true; btn.disabled = true;
     try {
       const d = await call({ action, id, name });
-      if (d.ok) { claims = d.claims; render(); } else btn.textContent = "Det gik galt – prøv igen";
+      if (d.ok) { claims = d.claims; open = null; names(); render(); } else btn.textContent = "Det gik galt – prøv igen";
     } catch (e) { btn.textContent = "Ingen forbindelse – prøv igen"; }
     finally { busy = false; btn.disabled = false; }
   }
 
   $("#lock").addEventListener("submit", e => { e.preventDefault(); unlock($("#code").value.trim()); });
-  $("#name").value = store.get("onskeNavn") || "";
-  $("#name").addEventListener("change", () => store.set("onskeNavn", $("#name").value.trim()));
+  document.addEventListener("submit", e => {
+    const f = e.target.closest("form.giver"); if (!f) return;
+    e.preventDefault();
+    const name = f.elements.fra.value.trim(); if (!name) return;
+    store.set("onskeNavn", name);
+    act("claim", f.dataset.id, f.querySelector(".btn.fire"), name);
+  });
   document.addEventListener("click", e => {
     const t = e.target.closest("button"); if (!t) return;
     if (t.dataset.tab) { tab = t.dataset.tab; render(); }
-    if (t.dataset.claim) act("claim", t.dataset.claim, t);
+    if (t.dataset.open) { open = t.dataset.open; render(); const inp = document.getElementById("fra-" + open); if (inp) { inp.focus(); inp.select(); } }
+    if ("cancel" in t.dataset) { open = null; render(); }
     if (t.dataset.unclaim) act("unclaim", t.dataset.unclaim, t);
   });
   $("#legend").innerHTML = Onske.legend();

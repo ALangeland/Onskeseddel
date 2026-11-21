@@ -76,3 +76,6 @@ footer{margin-top:40px;color:var(--mute);font-size:13px}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
 @media(max-width:600px){.hero{min-height:0}.hero-in{grid-template-columns:1fr}}
 .sheet:empty{display:none}
+.giver{display:grid;gap:6px;background:var(--bg);border:1px solid var(--fire);border-radius:8px;padding:10px}
+.giver label{font-size:14px;font-weight:700}
+.giver .actions{padding-top:2px}
