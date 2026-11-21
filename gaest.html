@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Gæsteside – Asbjørns ønskeseddel</title>
+<title>Skriv dig på en gave – Asbjørn</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='%23ff8a2a'/></svg>">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -12,8 +12,8 @@
 <header class="hero">
   <div class="hero-in">
   <div>
-    <h1>Gæstesiden</h1>
-    <p class="sub">Her kan du sætte dig på en gave til Asbjørn. Asbjørn må ikke se denne side, så den er låst med en kode.</p>
+    <h1>Skriv dig på en gave</h1>
+    <p class="sub">Her kan du se, hvilke gaver andre allerede har købt, og skrive dig på den, du vil give. Asbjørn kan ikke se denne side.</p>
   </div>
   <aside class="sheet" id="sheet" aria-label="Karakterark"></aside>
   </div>
@@ -21,22 +21,22 @@
 <div class="wrap">
   <form class="lock" id="lock">
     <h2>Skriv koden</h2>
-    <p><b>Asbjørn:</b> luk siden igen, det er her gaverne bliver fordelt.</p>
-    <input id="code" type="password" autocomplete="off" placeholder="Kode" aria-label="Kode" required>
+    <p>Koden har du fået af Mette eller Asbjørn. <b>Er du Asbjørn, så luk siden igen</b> – her står, hvem der giver hvad.</p>
+    <input id="code" type="password" autocomplete="off" placeholder="Skriv koden her" aria-label="Kode" required>
     <div class="err" id="err" role="alert"></div>
-    <button class="btn fire" id="go">Lås op</button>
+    <button class="btn fire" id="go">Åbn</button>
     <p><a href="./">← Tilbage til ønskesedlen</a></p>
   </form>
   <div id="app" hidden>
     <div class="stats" id="stats"></div>
     <div class="bar">
-      <p>Dit navn, så de andre kan se hvem der har taget gaven:</p>
-      <input id="name" maxlength="40" placeholder="Fx Mormor" style="max-width:260px" aria-label="Dit navn">
+      <p><b>Sådan gør du:</b> 1) Skriv dit navn her. 2) Find gaven og tryk “Jeg køber den”. Så kan de andre se, at den er taget.</p>
+      <input id="name" maxlength="40" placeholder="Dit navn, fx Mormor" style="max-width:260px" aria-label="Dit navn">
     </div>
     <nav class="tabs" id="tabs" aria-label="Kategorier"></nav>
     <main id="list"></main>
     <div class="legend" id="legend"></div>
-    <footer>Tryk <b>Jeg giver den!</b> for at tage en gave. Er en gave allerede taget, kan du trykke <b>Gå med på den</b> og give den sammen med de andre. Kun den, der har taget en gave, kan fjerne sit navn igen, og kun fra samme telefon eller computer.</footer>
+    <footer><b>Godt at vide:</b> Er en gave allerede taget, kan du trykke “Vi deler den”, hvis I vil give den sammen. Har du fortrudt, trykker du “Fortryd”. Det virker kun fra den samme telefon eller computer, som du skrev dig på fra. Spørg Mette, hvis noget driller.</footer>
   </div>
 </div>
 <script src="assets/config.js"></script>
@@ -61,28 +61,28 @@
   function render() {
     const byItem = id => claims.filter(c => c.id === id);
     const free = items.filter(i => !byItem(i.id).length).length;
-    $("#stats").innerHTML = `<div class="stat"><b>${free}</b><span>ledige quests</span></div><div class="stat"><b>${items.length - free}</b><span>er taget</span></div>`;
-    $("#sheet").innerHTML = Onske.sheet(items, [["Ledige", free], ["Taget", items.length - free]]);
+    $("#stats").innerHTML = `<div class="stat"><b>${free}</b><span>gaver er stadig ledige</span></div><div class="stat"><b>${items.length - free}</b><span>er taget</span></div>`;
+    $("#sheet").innerHTML = Onske.sheet(items, [["Ledige gaver", free], ["Taget", items.length - free]]);
     $("#tabs").innerHTML = Onske.tabs(tab);
     $("#list").innerHTML = Onske.sections(items, tab, i => {
       const who = byItem(i.id), mine = who.some(c => c.mine);
       const others = who.filter(c => !c.mine).map(c => Onske.esc(c.name));
       let claim = "";
-      if (who.length) claim = `<div class="claim">${mine ? "<b>Du har taget den</b>" + (others.length ? " sammen med " + others.join(", ") : "") : "Taget af " + others.join(" + ")}</div>`;
+      if (who.length) claim = `<div class="claim">${mine ? "<b>Du køber den</b>" + (others.length ? " sammen med " + others.join(", ") : "") : "Taget af " + others.join(" og ")}</div>`;
       const id = Onske.esc(i.id);
-      const btn = mine ? `<button class="btn" data-unclaim="${id}">Giv slip</button>`
-        : who.length ? `<button class="btn" data-claim="${id}">Gå med på den</button>`
-        : `<button class="btn fire" data-claim="${id}">Jeg giver den!</button>`;
+      const btn = mine ? `<button class="btn" data-unclaim="${id}">Fortryd</button>`
+        : who.length ? `<button class="btn" data-claim="${id}">Vi deler den</button>`
+        : `<button class="btn fire" data-claim="${id}">Jeg køber den</button>`;
       return Onske.card(i, claim, btn, who.length && !mine);
     });
   }
 
   async function unlock(c, quiet) {
-    if (!API) { $("#err").textContent = "Gæstesiden er ikke koblet til Google Sheet endnu."; return; }
+    if (!API) { $("#err").textContent = "Siden er ikke helt klar endnu. Prøv igen senere."; return; }
     code = c; $("#go").disabled = true; $("#err").textContent = "";
     try {
       const [d, list] = await Promise.all([call({ action: "list" }), Onske.load()]);
-      if (!d.ok) { $("#err").textContent = d.error === "kode" ? "Forkert kode." : "Noget gik galt – prøv igen."; return; }
+      if (!d.ok) { $("#err").textContent = d.error === "kode" ? "Koden passer ikke. Prøv igen." : "Noget gik galt – prøv igen."; return; }
       sess.set("onskeCode", c); items = list; claims = d.claims;
       $("#lock").hidden = true; $("#app").hidden = false; render();
     } catch (e) { if (!quiet) $("#err").textContent = "Kunne ikke få forbindelse. Prøv igen om lidt."; }
@@ -91,7 +91,7 @@
 
   async function act(action, id, btn) {
     const name = $("#name").value.trim();
-    if (action === "claim" && !name) { $("#name").focus(); $("#name").placeholder = "Skriv dit navn først"; return; }
+    if (action === "claim" && !name) { $("#name").focus(); $("#name").placeholder = "Skriv dit navn først"; $("#name").scrollIntoView({block:"center"}); return; }
     if (busy) return; busy = true; btn.disabled = true;
     try {
       const d = await call({ action, id, name });
