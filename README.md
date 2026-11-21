@@ -22,6 +22,8 @@ To sider på GitHub Pages:
 - `price`: tal i kroner, eller `null` for valgfrit beløb
 - `sure`: `false` viser et "Måske"-mærke
 - `prio`: 1–3 stjerner
+- `icon`: hvilken lille tegning kortet viser: `batteri`, `pumpe`, `kuffert`, `sortiment`, `pskive`, `pc`, `filament`, `mystisk`, `taske`, `boxer`, `skjorte`, `trøje`, `gavekort` eller `gave`
+- `img`: valgfrit link til et billede af tingen (højreklik på billedet i butikken → *Kopiér billedadresse*). Er feltet tomt, eller virker billedet ikke, vises tegningen i stedet.
 - `id`: skal være unikt. **Skift det ikke på et ønske, som nogen allerede har taget**, for så forsvinder reservationen.
 
 Husk kommaer mellem ønskerne. Tryk "Commit changes", så er siden opdateret efter et minut.

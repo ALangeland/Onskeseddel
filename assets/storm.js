@@ -7,7 +7,7 @@
   const sky = document.createElement("div");
   sky.className = "sky";
   sky.setAttribute("aria-hidden", "true");
-  sky.innerHTML = '<div class="stars"></div><div class="clouds"></div><div class="clouds two"></div><div class="rays"></div><div class="flash"></div>' +
+  sky.innerHTML = '<div class="stars"></div><div class="clouds"></div><div class="clouds two"></div><div class="flash"></div>' +
     '<svg class="bolt" viewBox="0 0 1000 600" preserveAspectRatio="none"><polyline points=""/><polyline points=""/></svg>';
   hero.prepend(sky);
   const by = document.createElement("div");
