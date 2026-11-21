@@ -47,6 +47,7 @@ window.Onske = (() => {
     const url = safeUrl(i.url);
     const meta = [i.shop && "Butik: " + i.shop, i.size && "Str. " + i.size, i.color && "Farve: " + i.color].filter(Boolean);
     return `<article class="card${taken ? " taken" : ""}" data-id="${esc(i.id)}" style="--rc:var(${tv})">
+      <i class="cap" aria-hidden="true"></i>
       ${thumb(i)}
       <div class="top"><span class="pill" style="color:var(${tv})">${tn}</span>${i.sure === false ? '<span class="pill maybe">Måske</span>' : ""}<span class="prio" title="Hvor gerne Asbjørn vil have den (1–3 stjerner)">${"★".repeat(+i.prio || 2)}</span></div>
       <h3>${esc(i.title)}</h3>
@@ -114,6 +115,7 @@ window.Onske = (() => {
   /* lille fejring når en gave bliver taget */
   function boom(card) {
     if (!card || still) return;
+    if (window.Storm) window.Storm.strike();
     const words = ["Sådan!", "Juhuu!", "Top!", "Yes!"];
     const b = document.createElement("div"); b.className = "boom"; b.textContent = words[Math.floor(Math.random() * words.length)];
     card.append(b);
