@@ -4,6 +4,7 @@ window.Onske = (() => {
   const TIERS = [[1200, "Over 1.200 kr.", "--q4"], [700, "700–1.200 kr.", "--q3"], [400, "400–700 kr.", "--q2"], [200, "200–400 kr.", "--q1"], [0, "Under 200 kr.", "--q0"]];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "";
+  const safeImg = u => /^(https?:\/\/|assets\/img\/[\w.-]+$)/i.test(u || "") ? u : "";
   const kr = n => Math.round(n).toLocaleString("da-DK") + " kr.";
   const hasPrice = p => p !== null && p !== undefined && p !== "";
   const tier = p => hasPrice(p) ? TIERS.find(t => +p >= t[0]).slice(1) : ["Vælg selv beløb", "--q5"];
@@ -32,7 +33,7 @@ window.Onske = (() => {
   function thumb(i) {
     const ic = ICONS[i.icon] || ICONS.gave;
     const svg = `<svg viewBox="0 0 120 80" aria-hidden="true">${ic}</svg>`;
-    const src = safeUrl(i.img);
+    const src = safeImg(i.img);
     if (!src) return `<div class="thumb">${svg}</div>`;
     return `<div class="thumb"><img src="${esc(src)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(this.nextElementSibling.content.cloneNode(true))"><template>${svg}</template></div>`;
   }
