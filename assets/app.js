@@ -26,6 +26,7 @@ window.Onske = (() => {
     skjorte: `<path d="M42 16l18 8 18-8 14 10-6 12-8-4v34H42V34l-8 4-6-12z" fill="#5d6a72" ${S}/><path d="M52 18l8 10 8-10M60 28v40" fill="none" ${S}/><circle cx="60" cy="38" r="1.5" fill="#fff"/><circle cx="60" cy="48" r="1.5" fill="#fff"/><circle cx="60" cy="58" r="1.5" fill="#fff"/>`,
     "trøje": `<path d="M42 18l18 6 18-6 16 12-8 12-6-4v32H40V38l-6 4-8-12z" fill="#34507f" ${S}/><path d="M52 20l8 8 8-8" fill="#fffdf8" ${S}/><path d="M40 66h40" ${S}/>`,
     gavekort: `<rect x="26" y="22" width="68" height="42" rx="6" fill="#c8423a" ${S}/><path d="M26 38h68M50 22v42" stroke="#f3d27a" stroke-width="5"/><path d="M50 38c-10-12-18-4-10 0M50 38c10-12 18-4 10 0" fill="none" stroke="#f3d27a" stroke-width="3"/>`,
+    skammel: `<path d="M30 70 L42 30 H78 L90 70 Z" fill="#2f6fd1" ${S}/><rect x="40" y="22" width="40" height="10" rx="3" fill="#2a2a30" ${S}/><path d="M46 30 L40 70 M60 32 V70 M74 30 L80 70 M36 50 H84" stroke="#1d4f9e" stroke-width="2.5" fill="none"/><rect x="26" y="68" width="68" height="6" rx="2" fill="#1d4f9e" ${S}/>`,
     gave: `<rect x="34" y="30" width="52" height="34" rx="3" fill="#c8423a" ${S}/><rect x="30" y="24" width="60" height="10" rx="2" fill="#d65145" ${S}/><path d="M60 24v40" stroke="#f3d27a" stroke-width="6"/>`
   };
   function thumb(i) {
